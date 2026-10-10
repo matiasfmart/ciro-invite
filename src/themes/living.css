@@ -1,0 +1,49 @@
+.invitation > .section, .candle-closing { border-block: 0; }
+.invitation > .section::before, .candle-closing::before { content: ''; position: absolute; left: 0; right: 0; top: -17px; height: 20px; background: inherit; border-radius: 50% 50% 0 0 / 70% 100% 0 0; pointer-events: none; }
+.details::before { background: #fffdf5 !important; }
+.countdown::before { background: #aee8de !important; }
+.rsvp::before { background: #fbf7e9 !important; }
+.candle-closing::before { background: #c9e879 !important; }
+.section.story-visible > .countdown-heading, .section.story-visible > .date-stamp, .section.story-visible > .meadow-scene, .section.story-visible .event-row, .section.story-visible > .rsvp-form { animation: lower-arrival 550ms ease-out both; }
+.section.story-visible > .date-stamp, .section.story-visible .event-row:nth-child(2) { animation-delay: 90ms; }
+.section.story-visible > .meadow-scene, .section.story-visible .event-row:nth-child(3), .section.story-visible > .rsvp-form { animation-delay: 160ms; }
+.countdown::after { content: ''; position: absolute; top: 50px; right: 5%; width: 65px; height: 20px; border-radius: 60% 60% 45% 45%; background: #fffbe888; box-shadow: -230px 65px 0 -4px #fffbe860; animation: lower-cloud 22s ease-in-out infinite alternate; pointer-events: none; }
+.days-arrived { animation: day-pop 380ms ease-out; }
+.live-countdown { display: flex; flex-direction: column; align-items: center; gap: 7px; margin-top: 10px; color: #405a35; }
+.live-countdown-label { font-size: 10px; }
+.live-countdown-clock, .clock-unit { display: inline-flex; gap: 2px; align-items: center; }
+.clock-slot { display: inline-grid; place-items: center; width: 17px; height: 24px; overflow: hidden; border-radius: 4px; background: #fffbe580; }
+.clock-digit { display: inline-block; font-size: 14px; font-variant-numeric: tabular-nums; animation: clock-change 200ms ease-out; }
+.clock-colon { padding-inline: 3px; }
+.details { position: relative; padding-left: 64px; }
+.details .event-row { grid-template-columns: 40px minmax(0, 1fr); }
+.details-trail { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.sandal-print { position: absolute; left: 0; top: 0; width: 8px; height: 16px; border-radius: 50% 45% 40% 45%; background: #aa7948; opacity: 0; }
+.sandal-print::after { content: ''; position: absolute; left: 2px; top: 5px; width: 4px; height: 2px; border-top: 2px solid #f4e8cb; }
+.trail-sheep { position: absolute; left: 0; top: 0; width: 35px; height: 34px; opacity: 0; }
+.trail-reached .detail-icon { animation: landmark-pop 380ms ease-out; }
+.details .button-outline { animation: location-breathe 5s ease-in-out infinite; }
+.party-sheep-art { display: block; position: relative; width: 100%; height: 100%; }
+.party-sheep-art svg { width: 100%; height: 100%; display: block; }
+.sheep-party-hat { position: absolute; right: 10%; top: -10%; width: 13px; height: 18px; background: repeating-linear-gradient(25deg, #df7653 0 4px, #ffdf75 4px 7px); clip-path: polygon(50% 0, 100% 100%, 0 100%); rotate: 10deg; }
+.guest-flock { display: flex; align-items: end; gap: 4px; min-height: 55px; margin: -6px 0 19px; }
+.guest-sheep { width: 31px; height: 34px; flex-shrink: 0; transform-origin: 50% 100%; animation: guest-enter 260ms ease-out both; }
+.guest-sheep.is-leaving { animation: guest-exit 220ms ease-in both; }
+.guest-overflow { font-size: 12px; padding-bottom: 5px; color: var(--muted); }
+.flock-celebrating .guest-sheep { animation: guest-hop 260ms ease-out both; }
+.candle-closing { padding-bottom: 18px; }
+.candle-closing.story-visible .cake-button { animation: cake-rise 650ms cubic-bezier(.2,.75,.3,1.2) both; }
+.candle-closing p.closing-thanks { min-height: 0; margin-top: 14px; }
+.candle-closing .relight-button { margin-top: 12px; }
+@keyframes lower-arrival { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes lower-cloud { from { transform: translateX(-8px); } to { transform: translateX(17px); } }
+@keyframes day-pop { 50% { transform: translateY(-3px) scale(1.08); } }
+@keyframes clock-change { from { opacity: .3; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes landmark-pop { 50% { transform: translateY(-3px) scale(1.08); } }
+@keyframes location-breathe { 0%, 80%, 100% { transform: scale(1); } 90% { transform: scale(1.012); } }
+@keyframes guest-enter { from { opacity: 0; transform: translate(12px, -14px) scale(.8); } to { opacity: 1; transform: translate(0, 0) scale(1); } }
+@keyframes guest-exit { to { opacity: 0; transform: translate(13px, -18px) scale(.8); } }
+@keyframes guest-hop { 50% { transform: translateY(-14px) scale(.97, 1.03); } }
+@keyframes cake-rise { from { opacity: 0; transform: translateY(24px) scale(.95); } 70% { opacity: 1; transform: translateY(-4px) scale(1.02); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (max-width: 359px) { .details { padding-left: 53px; padding-right: 17px; } .guest-flock { gap: 2px; } .guest-sheep { width: 28px; } }
+@media (prefers-reduced-motion: reduce) { .section.story-visible > *, .section.story-visible .event-row, .countdown::after, .days-arrived, .clock-digit, .trail-reached .detail-icon, .details .button-outline, .guest-sheep, .guest-sheep.is-leaving, .flock-celebrating .guest-sheep, .candle-closing.story-visible .cake-button { animation: none !important; } }
