@@ -24,10 +24,12 @@ export function AdventureProvider({ children, colors }: { children: ReactNode; c
     player.addEventListener('pause', updatePaused);
     player.addEventListener('error', updatePaused);
     window.addEventListener('pointerdown', startMusic);
+    window.addEventListener('click', startMusic);
     window.addEventListener('keydown', startMusic);
     startMusic();
     return () => {
       window.removeEventListener('pointerdown', startMusic);
+      window.removeEventListener('click', startMusic);
       window.removeEventListener('keydown', startMusic);
       player.removeEventListener('playing', updatePlaying);
       player.removeEventListener('pause', updatePaused);
