@@ -1,0 +1,54 @@
+.hero--cover { --ground-ratio: .85; --game-zoom: 1.3; }
+.hero--cover .hero-top { position: absolute; z-index: 4; inset: 8% 4% auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; height: 38%; gap: clamp(2px, 1.2vh, 10px); padding: 0; }
+.hero--cover .hero-intro { margin: 0; color: #294331; font: 500 16px/1.2 'Fredoka Variable', sans-serif; }
+.hero--cover .hero-title { display: flex; align-items: center; justify-content: center; width: 92%; margin: 0; padding: 5px 0 11px; overflow: visible; border: 0; border-radius: 0; background: none; box-shadow: none; clip-path: none; color: transparent; font: 400 clamp(120px, 35.6vw, 145px)/.95 'Lilita One', sans-serif; text-shadow: none; filter: drop-shadow(0 7px 6px #63462435); }
+.hero-title .title-letter { display: inline-block; background: linear-gradient(180deg, #fff4ad 1%, #ffdf69 37%, #efae35 77%, #d98e28 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: 4px #56331f; paint-order: stroke fill; text-shadow: none; filter: drop-shadow(0 4px 0 #c45f46) drop-shadow(0 8px 0 #984337) drop-shadow(0 11px 5px #58372238); translate: 0 var(--letter-arc); rotate: var(--letter-turn); }
+.title-letter:nth-child(1) { --letter-index: 1; --letter-arc: 5px; --letter-turn: -6deg; }
+.title-letter:nth-child(2) { --letter-index: 2; --letter-arc: -1px; --letter-turn: -2deg; }
+.title-letter:nth-child(3) { --letter-index: 3; --letter-arc: -1px; --letter-turn: 2deg; }
+.title-letter:nth-child(4) { --letter-index: 4; --letter-arc: 5px; --letter-turn: 6deg; }
+.hero--cover .hero-title { animation: poster-float 5.4s ease-in-out 2.1s infinite; }
+.hero-crest { display: flex; align-items: center; justify-content: center; gap: 3px; min-height: 78px; transform: rotate(-3deg); transform-origin: center; }
+.warrior-shield { position: relative; display: block; width: clamp(70px, 20vw, 82px); aspect-ratio: 1; flex: none; filter: drop-shadow(0 3px 2px #49301f45); }
+.warrior-shield svg { display: block; width: 100%; height: 100%; }
+.warrior-shield strong { position: absolute; inset: 0; display: grid; place-items: center; padding-bottom: 2px; color: #fff0bd; font: 700 46px/.9 'Fredoka Variable', sans-serif; -webkit-text-stroke: 1px #583a27; text-shadow: 0 2px 0 #573623; }
+.crest-ribbon { position: relative; z-index: 1; display: block; min-width: 142px; margin-left: -8px; padding: 8px 11px 8px 12px; border: 1px solid #e8c986; background: linear-gradient(#ae5b43, #884230); box-shadow: 0 3px 0 #60352355; color: #fff2ce; font: 600 13px/1.15 'Fredoka Variable', sans-serif; text-align: center; clip-path: polygon(0 0, 100% 0, 94% 50%, 100% 100%, 0 100%, 6% 50%); }
+.hero--cover .hero-meta { display: flex; align-items: center; justify-content: center; flex-wrap: nowrap; gap: 8px; width: fit-content; max-width: 96%; margin: 0; padding: 6px 11px; border: 1px solid #fff4d3a8; border-radius: 999px; background: #fff5dbbf; color: #294331; font: 600 12px/1.1 'DM Sans Variable', sans-serif; box-shadow: 0 2px 5px #69552a18; }
+.hero--cover .hero-meta > span { display: flex; align-items: center; gap: 4px; min-width: 0; white-space: nowrap; }
+.hero--cover .hero-meta i { color: #8b6041; font-style: normal; }
+.hero--cover .music-indicator { z-index: 6; }
+.hero--cover .game-gesture-hint { top: 86%; font-size: 11px; }
+.hero-top.is-entering .hero-intro { animation: poster-intro 440ms ease-out both; }
+.hero-top.is-entering .title-letter { animation: poster-letter-drop 650ms cubic-bezier(.2,.7,.28,1.25) both; animation-delay: calc(150ms + (var(--letter-index) - 1) * 90ms); }
+.hero-top.is-entering .hero-crest { animation: poster-crest-in 620ms cubic-bezier(.18,.75,.3,1.3) 990ms both; }
+.hero-top.is-entering .hero-meta { animation: poster-details-in 440ms ease-out 1530ms both; }
+.hero--cover:has(.official-game[data-phase="ground"]) .title-letter, .hero--cover:has(.official-game[data-phase="victory"]) .title-letter { animation: poster-celebrate 560ms cubic-bezier(.22,.75,.28,1.24) both; animation-delay: calc((var(--letter-index) - 1) * 90ms); }
+.countdown-description { margin: 8px 0 0; color: #354e39; font: 500 14px/1.35 'Fredoka Variable', sans-serif; text-align: center; }
+@keyframes poster-intro { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
+@keyframes poster-letter-drop { 0% { opacity: 0; translate: 0 -82px; rotate: 0deg; scale: .9 1.05; } 68% { opacity: 1; translate: 0 7px; rotate: var(--letter-turn); scale: 1.13 .78; } 84% { translate: 0 -4px; scale: .93 1.08; } 100% { opacity: 1; translate: 0 var(--letter-arc); rotate: var(--letter-turn); scale: 1 1; } }
+@keyframes poster-crest-in { from { opacity: 0; transform: translateY(-10px) rotate(-85deg) scale(.65); } 72% { opacity: 1; transform: translateY(2px) rotate(5deg) scale(1.08); } to { opacity: 1; transform: rotate(-3deg) scale(1); } }
+@keyframes poster-details-in { from { opacity: 0; translate: 0 7px; } to { opacity: 1; translate: 0 0; } }
+@keyframes poster-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -4px; } }
+@keyframes poster-celebrate { 0%, 100% { translate: 0 var(--letter-arc); rotate: var(--letter-turn); scale: 1 1; } 34% { translate: 0 -8px; rotate: calc(var(--letter-turn) * -.65); scale: .94 1.13; } 60% { translate: 0 3px; scale: 1.12 .82; } 80% { translate: 0 -4px; scale: .96 1.05; } }
+@media (max-height: 740px) {
+  .hero--cover .hero-top { inset-block-start: 6.5%; height: 42%; gap: clamp(1px, .65vh, 5px); }
+  .hero--cover .hero-intro { margin-bottom: 18px; font-size: 15px; }
+  .hero--cover .hero-title { font-size: clamp(108px, 32vw, 130px); padding-block: 3px 7px; }
+  .hero-title .title-letter { -webkit-text-stroke-width: 3px; }
+  .hero-crest { min-height: 68px; }
+  .warrior-shield { width: clamp(64px, 18vw, 74px); }
+  .warrior-shield strong { font-size: 41px; }
+  .crest-ribbon { min-width: 133px; padding-block: 7px; font-size: 12px; }
+  .hero--cover .hero-meta { padding-block: 5px; font-size: 11px; }
+  .hero--cover .game-gesture-hint { top: 85.5%; }
+}
+@media (max-width: 359px) {
+  .hero--cover .hero-top { inset-inline: 2%; }
+  .hero--cover .hero-title { width: 92%; font-size: 30vw; }
+  .hero--cover .hero-meta { gap: 5px; padding-inline: 8px; font-size: 10px; }
+  .crest-ribbon { min-width: 126px; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero--cover .hero-title { animation: none; }
+  .hero-top.is-entering .hero-intro, .hero-top.is-entering .title-letter, .hero-top.is-entering .hero-crest, .hero-top.is-entering .hero-meta, .hero--cover:has(.official-game[data-phase="ground"]) .title-letter, .hero--cover:has(.official-game[data-phase="victory"]) .title-letter { animation: none !important; }
+}

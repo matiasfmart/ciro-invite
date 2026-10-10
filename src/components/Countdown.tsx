@@ -24,6 +24,7 @@ export function Countdown({ config }: { config: InvitationConfig }) {
       {!finished && <div className={`countdown-units ${units.length === 1 ? 'single-unit' : ''}`}>
         {units.map((unit) => <div className="countdown-unit" key={unit.label}>{unit.label === 'días' ? <AnimatedDays value={unit.value} /> : <span>{String(unit.value).padStart(2, '0')}</span>}<span>{unit.label}</span></div>)}
       </div>}</div>
+      <p className="countdown-description">{config.theme.description}</p>
       {!finished && <div className="live-countdown" aria-label={`${remaining.hours} horas, ${remaining.minutes} minutos y ${remaining.seconds} segundos ${config.event.time ? 'hasta el cumpleaños' : 'hasta la fecha'}`}>
         <span className="live-countdown-label">{config.event.time ? 'Para el encuentro' : 'Hasta la fecha · horario a confirmar'}</span>
         <span className="live-countdown-clock" aria-hidden="true">{[remaining.hours, remaining.minutes, remaining.seconds].map((value, unit) => <span className="clock-unit" key={unit}>{unit > 0 && <span className="clock-colon">:</span>}{String(value).padStart(2, '0').split('').map((digit, position) => <span className="clock-slot" key={position}><span key={digit} className="clock-digit">{digit}</span></span>)}</span>)}</span>

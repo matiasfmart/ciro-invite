@@ -2,16 +2,43 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import confetti from 'canvas-confetti';
 
 type CelebrationOptions = { origin?: { x: number; y: number }; colors?: string[]; sound?: 'success' | 'applause' };
-type AdventureEffects = { soundEnabled: boolean; toggleSound: () => void; chime: (kind?: 'bell' | 'stone' | 'success' | 'applause') => void; celebrate: (options?: CelebrationOptions) => void };
+type AdventureEffects = { musicPlaying: boolean; chime: (kind?: 'bell' | 'stone' | 'success' | 'applause') => void; celebrate: (options?: CelebrationOptions) => void };
 const AdventureContext = createContext<AdventureEffects | null>(null);
 
 export function AdventureProvider({ children, colors }: { children: ReactNode; colors: string[] }) {
-  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(false);
   const audio = useRef<AudioContext | null>(null);
-  useEffect(() => () => { void audio.current?.close(); }, []);
+  useEffect(() => {
+    const player = new Audio(`${import.meta.env.BASE_URL}assets/david-cancion.mp3`);
+    player.loop = true;
+    player.volume = 0.22;
+    let starting = false;
+    const updatePlaying = () => setMusicPlaying(true);
+    const updatePaused = () => setMusicPlaying(false);
+    const startMusic = () => {
+      if (starting || !player.paused) return;
+      starting = true;
+      void player.play().catch(() => {}).finally(() => { starting = false; });
+    };
+    player.addEventListener('playing', updatePlaying);
+    player.addEventListener('pause', updatePaused);
+    player.addEventListener('error', updatePaused);
+    window.addEventListener('pointerdown', startMusic);
+    window.addEventListener('keydown', startMusic);
+    startMusic();
+    return () => {
+      window.removeEventListener('pointerdown', startMusic);
+      window.removeEventListener('keydown', startMusic);
+      player.removeEventListener('playing', updatePlaying);
+      player.removeEventListener('pause', updatePaused);
+      player.removeEventListener('error', updatePaused);
+      player.pause();
+      void audio.current?.close();
+    };
+  }, []);
 
   function chime(kind: 'bell' | 'stone' | 'success' | 'applause' = 'bell') {
-    if (!soundEnabled || !('AudioContext' in window)) return;
+    if (!musicPlaying || !('AudioContext' in window)) return;
     try {
       audio.current ??= new AudioContext();
       const context = audio.current;
@@ -48,7 +75,7 @@ export function AdventureProvider({ children, colors }: { children: ReactNode; c
         oscillator.stop(start + 0.4);
         oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
       });
-    } catch { setSoundEnabled(false); }
+    } catch {}
   }
 
   function celebrate(options: CelebrationOptions = {}) {
@@ -57,7 +84,7 @@ export function AdventureProvider({ children, colors }: { children: ReactNode; c
     void confetti({ particleCount: 65, spread: 65, startVelocity: 28, gravity: 1, origin: options.origin ?? { y: 0.55 }, colors: options.colors ?? colors, disableForReducedMotion: true });
   }
 
-  return <AdventureContext.Provider value={{ soundEnabled, toggleSound: () => setSoundEnabled((enabled) => !enabled), chime, celebrate }}>{children}</AdventureContext.Provider>;
+  return <AdventureContext.Provider value={{ musicPlaying, chime, celebrate }}>{children}</AdventureContext.Provider>;
 }
 
 export function useAdventure() {

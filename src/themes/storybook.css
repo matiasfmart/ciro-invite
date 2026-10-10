@@ -20,8 +20,13 @@ svg { flex-shrink: 0; }
 .birthday-badge strong { font-size: 30px; font-weight: 600; }
 .hero-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 15px; margin-top: 16px; font-size: 13px; font-weight: 600; }
 .hero-meta > span { display: flex; align-items: center; gap: 5px; min-width: 0; overflow-wrap: anywhere; }
-.sound-toggle { position: absolute; top: 9px; right: 10px; z-index: 5; }
-.icon-button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #ffffff80; border-radius: 50%; color: var(--ink); background: #ffffff60; }
+.music-indicator { position: absolute; top: 9px; right: 10px; z-index: 5; display: flex; align-items: center; justify-content: center; gap: 2px; width: 48px; height: 40px; border: 1px solid #ffffff80; border-radius: 20px; color: var(--ink); background: #ffffff60; }
+.music-indicator-bars { display: flex; align-items: center; gap: 2px; height: 13px; }
+.music-indicator-bars i { display: block; width: 2px; height: 4px; border-radius: 2px; background: currentColor; transform: scaleY(.6); transform-origin: center; }
+.music-indicator.is-playing .music-indicator-bars i { animation: music-beat 480ms ease-in-out infinite alternate; }
+.music-indicator.is-playing .music-indicator-bars i:nth-child(2) { animation-delay: 180ms; }
+.music-indicator.is-playing .music-indicator-bars i:nth-child(3) { animation-delay: 90ms; }
+@keyframes music-beat { to { transform: scaleY(2.8); } }
 .bunting { position: absolute; top: -10px; left: -3%; display: flex; justify-content: space-around; width: 106%; height: 38px; padding-top: 4px; border-top: 2px solid #647b54; rotate: -2deg; }
 .bunting i { width: 23px; height: 28px; background: var(--banner); clip-path: polygon(0 0, 100% 0, 50% 100%); }
 .bunting i:nth-child(3n+2) { background: var(--accent); height: 33px; }
